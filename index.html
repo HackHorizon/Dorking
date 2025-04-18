@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dork Search Engine</title>
+    <meta name="description" content="Explore dorking.iithack.com, a Dork Search Engine for easy Google Dorking. Enter a target domain and click to search without typing complex dorks.">
+    <link rel="icon" href="favicon.png" type="image/png"> <!-- Add your favicon file here -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 24px;
+            font-weight: 500;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .header a {
+            text-decoration: none;
+            color: #fff;
+        }
+        .header img {
+            height: 40px; /* Adjust height as needed based on your logo size */
+            width: auto;
+        }
+        .input-section {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .input-section input {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #000;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .input-section input:focus {
+            outline: none;
+            box-shadow: 0 0 5px #ff0000;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 0 20px;
+        }
+        .btn-dork {
+            background-color: #fff;
+            color: #000;
+            border: none;
+            padding: 10px 15px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            font-weight: 500;
+        }
+        .btn-dork:hover {
+            background-color: #ff0000;
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 0, 0, 0.3);
+        }
+        @media (max-width: 1024px) {
+            .buttons {
+                justify-content: center;
+            }
+            .btn-dork {
+                flex: 1 1 200px;
+                margin: 5px;
+            }
+        }
+        @media (max-width: 768px) {
+            .input-section input {
+                width: 200px;
+            }
+            .btn-dork {
+                flex: 1 1 150px;
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+        }
+        @media (max-width: 480px) {
+            .input-section input {
+                width: 150px;
+            }
+            .btn-dork {
+                flex: 1 1 120px;
+                font-size: 10px;
+                padding: 6px 10px;
+            }
+            .buttons {
+                gap: 5px;
+                padding: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="https://iithack.com" target="_blank">
+                <img src="Logo_Without_bg.png" alt="IIT Hack Logo"> <!-- Add your logo file here -->
+            </a>
+            Dork Search Engine
+        </div>
+        <div class="input-section">
+            <input type="text" id="targetDomain" placeholder="Enter Target Domain (e.g., example.com)" required>
+        </div>
+        <div class="buttons" id="dorkMethods">
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(index.php | default.php | default.aspx | main.php)">Directory listing</button>
+            <button class="btn-dork" data-dork="site:targetDomain ext:xml | ext:conf | ext:cnf | ext:reg | ext:inf | ext:rdp | ext:cfg | ext:txt -inurl:(jsp | sql | body | html | shtml | rhtml | dhtml | xhtml | jhtml | htm | chm | doc | pdf | xls | csv | log | zip | rar | tar | gz | 7z)">Config files</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(db | sql | backup | bak | backup | bkp | bakup | bck | dump | schema) -inurl:(jsp | sql | body | html | shtml | rhtml | dhtml | xhtml | jhtml | htm | chm | doc | pdf | xls | csv | log | zip | rar | tar | gz | 7z)">Database files</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(log | logs | logfile | err | error | errors | errorlog | accesslog | history) -inurl:(jsp | sql | body | html | shtml | rhtml | dhtml | xhtml | jhtml | htm | chm | doc | pdf | xls | csv | log | zip | rar | tar | gz | 7z)">Log files</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(backup | bak | old | backup | bkp | bakup | bck | copy | mirror | temp | temp | tmp) -inurl:(jsp | sql | body | html | shtml | rhtml | dhtml | xhtml | jhtml | htm | chm | doc | pdf | xls | csv | log | zip | rar | tar | gz | 7z)">Backup files</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(login | signin | admin_login | admin_signin | login.php | login.aspx | login.html)">Login pages</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(sql | mysql | error | warning | exception | stacktrace) -inurl:(jsp | sql | body | html | shtml | rhtml | dhtml | xhtml | jhtml | htm | chm | doc | pdf | xls | csv | log | zip | rar | tar | gz | 7z)">SQLErrors</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(doc | docs | document | documents | pdf | xls | ppt | docx | xlsx | pptx) -inurl:(jsp | sql | body | html | shtml | rhtml | dhtml | xhtml | jhtml | htm | chm | zip | rar | tar | gz | 7z)">Exposed docs</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:phpinfo.php">phpinfo()</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(wp-admin | wp-login | wordpress)">WordPress</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(backdoor | shell | webshell) -inurl:(jsp | sql | body | html | shtml | rhtml | dhtml | xhtml | jhtml | htm | chm | doc | pdf | xls | csv | log | zip | rar | tar | gz | 7z)">Backdoors</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(install | setup | wizard | configure) -inurl:(jsp | sql | body | html | shtml | rhtml | dhtml | xhtml | jhtml | htm | chm | doc | pdf | xls | csv | log | zip | rar | tar | gz | 7z)">Setup files</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(redirect | redirection | url | link) -inurl:(jsp | sql | body | html | shtml | rhtml | dhtml | xhtml | jhtml | htm | chm | doc | pdf | xls | csv | log | zip | rar | tar | gz | 7z)">Open redirects</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(struts | action) -inurl:(jsp | sql | body | html | shtml | rhtml | dhtml | xhtml | jhtml | htm | chm | doc | pdf | xls | csv | log | zip | rar | tar | gz | 7z)">STRUTS RCE</button>
+            <button class="btn-dork" data-dork="site:pastebin.com intext:targetDomain">Pastebin entries</button>
+            <button class="btn-dork" data-dork="site:linkedin.com intext:targetDomain">LinkedIn employees</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:htaccess -inurl:(jsp | sql | body | html | shtml | rhtml | dhtml | xhtml | jhtml | htm | chm | doc | pdf | xls | csv | log | zip | rar | tar | gz | 7z)">htaccess files</button>
+            <button class="btn-dork" data-dork="site:targetDomain -www.site:*.targetDomain -site:targetDomain">Subdomains</button>
+            <button class="btn-dork" data-dork="site:targetDomain find Sub-Subdomains">Sub-subdomains</button>
+            <button class="btn-dork" data-dork="site:targetDomain -inurl:www.targetDomain">Crossdomain</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(swf)">SWF</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(mime-swf)">MIME-SWF</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(swf) -inurl:(html | htm | php | asp)">SWF links</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(mime-swf) -inurl:(html | htm | php | asp)">MIME-SWF links</button>
+            <button class="btn-dork" data-dork="site:web.archive.org inurl:targetDomain">Web Archive #1</button>
+            <button class="btn-dork" data-dork="site:web.archive.org inurl:targetDomain -inurl:(www.targetDomain)">Web Archive #2</button>
+            <button class="btn-dork" data-dork="site:censys.io ipv4:targetDomain">Censys IPv4</button>
+            <button class="btn-dork" data-dork="site:censys.io domain:targetDomain">Censys Domain</button>
+            <button class="btn-dork" data-dork="site:censys.io certificates:targetDomain">Censys Certs</button>
+            <button class="btn-dork" data-dork="site:shodan.io intext:targetDomain">SHODAN</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:vulnerable">Vulnerable servers</button>
+            <button class="btn-dork" data-dork="site:arcgis.com/rest/services site:targetDomain">ArcGIS REST</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:wp-content juicy-info">wp-content juicy</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:main.yml">main.yml</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:admin portal">Admin portal</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(upload | fileupload)">File upload</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(wp-plugin | wordpress-plugin)">WP plugin</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(wp-plugin | wordpress-plugin) juicy-info">WP juicy #1</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(sharing-api-info)">Sharing API</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(sensitive-admin-backup)">Admin backup</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(github-api)">Github API</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(wordpress-backup)">WP juicy #2</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(mysql)">MySQL</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(joomla | joomla-database)">Joomla DB</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(sql)">SQL file</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(remote-procedure-call-protocol)">RPC protocol</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(sensitive-file)">Sensitive file</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(jwks-rsa)">jwks-rsa</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(docker-compose.yml)">Docker compose</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(directories-containing-SQL-installs-or-SQL-databases)">SQL dirs</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(check-in-ThreatCrowd)">ThreatCrowd</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(certificate-transparency)">Cert transparency</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(search-openbugbounty)">OpenBugBounty</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(search-in-reddit)">Reddit</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:(search-WP-config-backup)">WP config</button>
+            <button class="btn-dork" data-dork="site:targetDomain ext:doc | ext:docx | ext:odt | ext:rtf | ext:sxw | ext:psw | ext:ppt | ext:pptx | ext:pps | ext:csv">Documents</button>
+            <button class="btn-dork" data-dork="site:targetDomain intitle:index.of">Directory list</button>
+            <button class="btn-dork" data-dork="site:targetDomain ext:xml | ext:conf | ext:cnf | ext:reg | ext:inf | ext:rdp | ext:cfg | ext:txt | ext:ora | ext:ini | ext:env">Config files</button>
+            <button class="btn-dork" data-dork="site:targetDomain ext:sql | ext:dbf | ext:mdb">Database files</button>
+            <button class="btn-dork" data-dork="site:targetDomain ext:log">Log files</button>
+            <button class="btn-dork" data-dork="site:targetDomain ext:bkf | ext:bkp | ext:bak | ext:old | ext:backup">Backup files</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:login | inurl:signin | intitle:Login | intitle:'sign in' | inurl:auth">Login pages</button>
+            <button class="btn-dork" data-dork="site:targetDomain intext:'sql syntax near' | intext:'syntax error has occurred' | intext:'incorrect syntax near' | intext:'unexpected end of SQL command' | intext:'Warning: mysql_connect()' | intext:'Warning: mysql_query()' | intext:'Warning: pg_connect()'">SQLErrors</button>
+            <button class="btn-dork" data-dork="site:targetDomain 'PHP Parse error' | 'PHP Warning' | 'PHP Error'">PHP errors</button>
+            <button class="btn-dork" data-dork="site:targetDomain ext:php intitle:phpinfo 'published by the PHP Group'">phpinfo</button>
+            <button class="btn-dork" data-dork="site:pastebin.com | site:paste2.org | site:pastehtml.com | site:slexy.org | site:snipplr.com | site:snipt.net | site:textsnip.com | site:bitpaste.app | site:justpaste.it | site:heypasteit.com | site:hastebin.com | site:dpaste.org | site:dpaste.com | site:codepad.org | site:jsitor.com | site:codepen.io | site:jsfiddle.net | site:dotnetfiddle.net | site:phpfiddle.org | site:ide.geeksforgeeks.org | site:repl.it | site:ideone.com | site:paste.debian.net | site:paste.org | site:paste.org.ru | site:codebeautify.org | site:codeshare.io | site:trello.com 'targetDomain'">Paste sites</button>
+            <button class="btn-dork" data-dork="site:github.com | site:gitlab.com 'targetDomain'">GitHub/GitLab</button>
+            <button class="btn-dork" data-dork="site:stackoverflow.com 'targetDomain'">StackOverflow</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:signup | inurl:register | intitle:Signup">Signup pages</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:newsitem.php?num= and inurl:index.php?id=">News</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:trainers.php?id=">Trainers</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:buy.php?category=">Buy</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:article.php?ID=">Article</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:play_old.php?id=">Play</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:declaration_more.php?decl_id=">Declaration</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:pageid=">Page</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:games.php?id=">Games</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:page.php?file=">Page.php</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:newsDetail.php?id=">News detail</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:gallery.php?id=">Gallery</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:article.php?id=">Article.php</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:show.php?id=">Show.php</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:staff_id=">Staff</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:newsitem.php?num=">News item</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:1051/viewer/live/index.html?lang=en">Viewer live</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:'view.shtml' ext:shtml">Inurl</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:'/?q=user/password/'">Password</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:'/cgi-bin/guestimage.html' 'Menu'">CGI-bin</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:'/php/info.php' 'PHP Version'">Info.php</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:/phpmyadmin/user_password.php">phpMyAdmin</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:'servicedesk/customer/user/login'">Service desk</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:'view.shtml' 'Network'">View network</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:'view.shtml' 'camera'">View camera</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:'woocommerce-exporter'">WooCommerce</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:/?op=register">Register</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:/Jview.htm + 'View Video - Java Mode'">View video</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:/Jview.htm + intext:'Zoom :'">Intext zoom</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:/adfs/ls/?SAMLRequest">ADFS</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:/adfs/ls/idpinitiatedsignon">ADFS LS</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:/adfs/oauth2/authorize">ADFS OAuth2</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:/cgi-bin/manlist?section">CGI-bin list</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:/eftclient/account/login.htm">EFT client</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:/homej.html?">Homej</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:/index.html?size=2&mode=4">Index.html</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:/pro_users/login">Pro users</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:/wp-content/themes/altair/">WP-content</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:/xprober ext:php">Xprober</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:RichWidgets/Popup_Upload.aspx">Popup upload</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:Sitefinity/Authenticate/SWT">Sitefinity</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:adfs inurl:wctx inurl:wtrealm -microsoft.com">WCTX</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:authorization.ping">Authorization</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:https://trello.com AND intext:@gmail.com AND intext:password">Trello</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:idp/Authn/UserPassword">Auth user</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:idp/prp.wsf">PRP WSF</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:login.seam">Login seam</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:nidp/idff/sso">IDFF</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:oidc/authorize">Authorize</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:opac_css">Opac CSS</button>
+            <button class="btn-dork" data-dork="site:targetDomain inurl:weblogin intitle:('USG20-VPN'|'USG20W-VPN'|USG40|USG40W|USG60|)">Web login VPN</button>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('#dorkMethods button').forEach(button => {
+            button.addEventListener('click', () => {
+                const targetDomain = document.getElementById('targetDomain').value.trim();
+                let dorkUrl = button.getAttribute('data-dork');
+
+                if (!targetDomain || !/^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(targetDomain)) {
+                    alert('Please enter a valid domain (e.g., example.com)');
+                    return;
+                }
+
+                if (dorkUrl.includes('targetDomain')) {
+                    dorkUrl = dorkUrl.replace('targetDomain', targetDomain);
+                }
+
+                if (!dorkUrl.startsWith('https://www.google.com/search?q=')) {
+                    dorkUrl = `https://www.google.com/search?q=${encodeURIComponent(dorkUrl)}`;
+                }
+
+                window.open(dorkUrl, '_blank');
+            });
+        });
+    </script>
+</body>
+</html>
